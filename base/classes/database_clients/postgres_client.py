@@ -34,6 +34,7 @@ class PostgresClient(DBClient):
         self.cursor = None
         self.env_file_path = None
 
+
     def __inject_db_credentials(self):
         """
         This internal method sets the database connection properties
@@ -66,11 +67,59 @@ class PostgresClient(DBClient):
         This method connects to the specified database server.
 
         Args:
-            db_connection_str ('object'): Database connection string.
+            None
 
         Returns:
             bool: If connection is succesful.
         """
         log.info(f"Connecting to {self.database}")
 
-        self.__inject_db_credentials()
+        if self.connection:
+            self.connection.close()
+
+        try:
+            self.__inject_db_credentials()
+
+            self.connection = psycopg.connect(
+                host=self.host,
+                database=self.database,
+                user=self.user,
+                password=self.password
+            )
+            self.cursor = self.connection.cursor()
+            log.info(f"Connected to {self.database} successfully!")
+            
+            return True
+            
+        except Exception:
+            raise RuntimeError(
+                f"Failed to connect {self.database}!"
+            )
+
+
+    def send_db_command(self, command_str) -> bool:
+        """
+        This method send a specific command to the database.
+
+        Args:
+            command_str ('str'): The command string to send to the database.
+        
+        Returns:
+            bool: If command was sent successfully
+        """
+        if not self.cursor:
+            try:
+                self.connect()
+            except Exception:
+                raise RuntimeError(
+                    f"Failed to connect {self.database}!"
+                )
+        
+        try:
+            self.cursor.execute(command_str)
+            self.cursor.commit()
+        
+        except Exception as err:
+            raise RuntimeError(
+                f"Transaction failed with error: {err}"
+            )
