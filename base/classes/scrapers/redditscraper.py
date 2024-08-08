@@ -1,8 +1,11 @@
 # This file contains the Reddit DataScaper object implementation
 
-import logger
+import logging
 import requests
 from bs4 import BeautifulSoup
+
+logging.basicConfig(level=logging.INFO)
+log = logging.getLogger()
 
 class RedditDataScraper(DataScraper):
     """
@@ -28,7 +31,7 @@ class RedditDataScraper(DataScraper):
         self.connection = connection
 
 
-    def _set_api_key(self):
+    def __set_api_key(self):
         """
         This internal method sets the Reddit api key property.
 
@@ -59,7 +62,7 @@ class RedditDataScraper(DataScraper):
         """
         if self.api_key == '':
             try:
-                _set_api_key()
+                self.__set_api_key()
             except Exception as err:
                 raise RuntimeError(
                     f"Setting api key failed with error: {err}"
