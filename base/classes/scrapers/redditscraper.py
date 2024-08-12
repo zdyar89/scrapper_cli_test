@@ -2,6 +2,7 @@
 
 import logging
 import requests
+from abstractions import DataScraper
 from bs4 import BeautifulSoup
 
 logging.basicConfig(level=logging.INFO)
