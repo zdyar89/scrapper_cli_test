@@ -1,0 +1,7 @@
+deploy as a flask app?
+
+integrate summarizing tools for pdfs, audio transcripts?
+
+once a week cron job to update packages?
+
+develop small makefile?

@@ -1,0 +1,22 @@
+# Test file for setting up docker container
+
+# FROM -> setting the base language binary environment
+FROM python:3.9-slim
+
+# WORKDIR -> setting the container directory with the app files
+WORKDIR ~/test-app
+
+# COPY -> copy the local files to the container
+COPY . .
+
+# RUN -> install the language packages
+pip install --no-cache-dir -r requirements.txt
+
+# EXPOSE -> use the designated port
+EXPOSE 9000
+
+# ENV -> define env variables, set this multiple times for different vars
+ENV NAME World
+
+# CMD -> run the specified command with the target language binary
+CMD ["python", "./base/main.py"]
