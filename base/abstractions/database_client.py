@@ -18,6 +18,7 @@ class DBClient(self):
         """
         pass
 
+
     def connect(self, *args, **kwargs) -> bool:
         """
         This method connects to the specified database server.
@@ -31,14 +32,27 @@ class DBClient(self):
         pass
 
 
-    def send_db_command(self, command_str) -> bool:
+    def send_db_query(self, query_str) -> bool:
         """
-        This method send a specific command to the database.
+        This method sends a specific query to the database.
 
         Args:
-            command_str ('str'): The command string to send to the database.
+            query_str ('str'): The query string to send to the database.
         
         Returns:
-            bool: If command was sent successfully
+            bool: If query was sent successfully
+        """
+        pass
+
+
+    def __clean_query_string(self, query_string) -> str:
+        """
+        This method cleans the query string for safety
+
+        Args:
+            query_string ('str'): The query string to be cleaned
+
+        Returns:
+            query_string ('str'): The cleaned string value
         """
         pass
