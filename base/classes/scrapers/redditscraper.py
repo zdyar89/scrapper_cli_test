@@ -20,7 +20,7 @@ class RedditDataScraper(DataScraper):
         Initializes a new RedditDataScraper object.
 
         Args:
-            api_key_uri ('str'). The
+            api_key_uri ('str'): The key uri
             api_key ('str'): The Reddit api key.
             connection ('str'): The connection status.
         
