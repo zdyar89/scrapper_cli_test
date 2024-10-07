@@ -25,12 +25,17 @@
 # to use this pv, use the docker run command with the pv name and a target src
  # - docker run -dp 127.0.0.1:3000:3000 --mount type=volume,src=<pv_name>,target=/etc/<app_name> <app-image-name>
 
+# you can also use the '-v' flag to automatically make a volume, shown below
+
  # if you want different containers for different tasks, say for instance one container for the front end client, one for 
  # the middleware code, and one for the backend and/or DB, we need a network first
   # - docker network create <app_network_name>
   # docker run -d  \
   # --network <app_network_name> --network-alias <db_name_alias> \
   # --volume <db_name_data>:/var/lib/<db_name_alias> \
+  # -e <db_root_username>=username \
   # -e <db_root_password>=secret \ 
   # -e <db_name>=<example_name> \
   # <base_db_image>
+
+# the compose.yaml file is a way to orchestrate multiple containers in a single file
