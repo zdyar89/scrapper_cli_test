@@ -1,0 +1,36 @@
+#base image to use
+#FROM node:18-alpha
+
+#application directory path
+#WORKDIR /app
+
+#copy src destination
+#COPY . .
+
+#run desired command
+#RUN yarn install --production
+
+#executable commands
+#CMD ["node", "src/index.js"]
+
+#expose port number
+#EXPOSE 3000
+
+
+#use 'docker build -t <app-image-name>' to build the image
+#use 'docker run -dp 127.0.0.1:3000:3000 <app-image-name>' to start container
+
+# to create persistence, you need to create a persistant volume with docker
+ # - docker volume create <pv_name>
+# to use this pv, use the docker run command with the pv name and a target src
+ # - docker run -dp 127.0.0.1:3000:3000 --mount type=volume,src=<pv_name>,target=/etc/<app_name> <app-image-name>
+
+ # if you want different containers for different tasks, say for instance one container for the front end client, one for 
+ # the middleware code, and one for the backend and/or DB, we need a network first
+  # - docker network create <app_network_name>
+  # docker run -d  \
+  # --network <app_network_name> --network-alias <db_name_alias> \
+  # --volume <db_name_data>:/var/lib/<db_name_alias> \
+  # -e <db_root_password>=secret \ 
+  # -e <db_name>=<example_name> \
+  # <base_db_image>
